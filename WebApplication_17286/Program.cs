@@ -29,6 +29,7 @@ if (!app.Environment.IsDevelopment())
     app.UseHsts();
 }
 
+app.Urls.Add("http://*:44312");
 app.UseHttpsRedirection();
 app.UseStaticFiles();
 
