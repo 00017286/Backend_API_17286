@@ -18,6 +18,9 @@ o.UseSqlServer(builder.Configuration.GetConnectionString("MusicDB")));
 builder.Services.AddTransient<ISongRepository, SongRepository>();
 builder.Services.AddTransient<IPerformerRepository, PerformerRepository>();
 
+// Add Swagger service
+builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
 
@@ -27,6 +30,13 @@ if (!app.Environment.IsDevelopment())
     app.UseExceptionHandler("/Home/Error");
     // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
     app.UseHsts();
+}
+
+// Turn on Swagger in Development env
+if (app.Environment.IsDevelopment())
+{
+    app.UseSwagger();
+    app.UseSwaggerUI();
 }
 
 app.Urls.Add("http://*:44312");
